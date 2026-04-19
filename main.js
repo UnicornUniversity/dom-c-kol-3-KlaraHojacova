@@ -4,13 +4,12 @@
  * @returns {string} iso string
  */
 function getBirthdate(age) {
-    const msInYear = 365.25 * 24 * 60 * 60 * 1000;
+    const msInYear = 31557600000;
     const now = new Date().getTime();
     const earliest = now - (age.max * msInYear);
     const latest = now - (age.min * msInYear);
     const randomTime = earliest + Math.random() * (latest - earliest);
 
-    // Time set to midnight
     const birthdate = new Date(randomTime);
     birthdate.setUTCHours(0, 0, 0, 0);
 
@@ -30,7 +29,9 @@ export function main(dtoIn) {
         { name: "Jaroslav", surname: "Raketa", gender: "male", workload: 30 },
         { name: "Rostislav", surname: "Holek", gender: "male", workload: 10 },
         { name: "Jana", surname: "Bílá", gender: "female", workload: 40 },
-        { name: "Zdena", surname: "Holá", gender: "female", workload: 20 }
+        { name: "Zdena", surname: "Holá", gender: "female", workload: 20 },
+        { name: "Petr", surname: "Marek", gender: "male", workload: 30 },
+        { name: "Eva", surname: "Nováková", gender: "female", workload: 40 }
     ];
 
     for (let i = 0; i < dtoIn.count; i++) {
