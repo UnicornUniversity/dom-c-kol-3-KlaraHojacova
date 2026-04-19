@@ -1,7 +1,7 @@
 /**
  * Generates a random birthdate within the given age range.
- * @param {{min: Number, max: Number}} age Object containing min and max age
- * @returns {String} ISO date string
+ * @param {object} age age object
+ * @returns {string} iso string
  */
 function getBirthdate(age) {
     const msInYear = 31557600000;
@@ -14,8 +14,8 @@ function getBirthdate(age) {
 
 /**
  * Main function generating employees.
- * @param {Object} dtoIn Input data object with count and age range
- * @returns {Array} List of generated employees
+ * @param {object} dtoIn input data
+ * @returns {Array} list of employees
  */
 export function main(dtoIn) {
     const dtoOut = [];
