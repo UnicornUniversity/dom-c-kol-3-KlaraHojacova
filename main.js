@@ -1,45 +1,56 @@
 /**
- * Function for calculation of date of birth vs age range
- * @param {object} age Age range - min.max.
- * @returns {string} Date in ISO format
+ * Random generation of birthdate according to the given age range
+ * @param {{min: number, max: number}} age
+ * @returns {string} ISO date
  */
 function getBirthdate(age) {
-    const msInYear = 365.25 * 24 * 60 * 60 * 1000;
-    const now = new Date().getTime();
-    const earliest = now - (age.max * msInYear);
-    const latest = now - (age.min * msInYear);
-    const randomMs = Math.floor(Math.random() * (latest - earliest + 1) + earliest);
-    return new Date(randomMs).toISOString();
-}
+    const now = new Date();
 
+    const minDate = new Date(now);
+    minDate.setFullYear(now.getFullYear() - age.max);
+
+    const maxDate = new Date(now);
+    maxDate.setFullYear(now.getFullYear() - age.min);
+
+    const randomTime =
+        minDate.getTime() +
+        Math.random() * (maxDate.getTime() - minDate.getTime());
+
+    return new Date(randomTime).toISOString();
+}
 /**
- * Main function for employee generation
- * @param {object} dtoIn Input data
- * @returns {array} Employee list
+ * Main function generating employees
+ * @param {object} dtoIn
+ * @returns {object} dtoOut
  */
 export function main(dtoIn) {
-    const result = [];
+    const dtoOut = [];
+
     const employees = [
-        { name: "Jan", surname: "Holý", gender: "male" },
-        { name: "Miroslav", surname: "Rezek", gender: "male" },
-        { name: "Jaroslav", surname: "Raketa", gender: "male" },
-        { name: "Rostislav", surname: "Holek", gender: "male" },
-        { name: "Jana", surname: "Bílá", gender: "female" },
-        { name: "Zdena", surname: "Holá", gender: "female" }
+        { name: "Jan", surname: "Novák", gender: "male" },
+        { name: "Petr", surname: "Svoboda", gender: "male" },
+        { name: "Jakub", surname: "Dvořák", gender: "male" },
+        { name: "Lukáš", surname: "Kučera", gender: "male" },
+        { name: "Jana", surname: "Nováková", gender: "female" },
+        { name: "Petra", surname: "Svobodová", gender: "female" },
+
     ];
 
-    // Tady jsou ty zavitorky, ktere mi minule vypadly:
     const workloads = [10, 20, 30, 40];
 
     for (let i = 0; i < dtoIn.count; i++) {
-        const person = employees[Math.floor(Math.random() * employees.length)];
-        result.push({
-            gender: person.gender,
-            birthdate: getBirthdate(dtoIn.age),
+        const person =
+            employees[Math.floor(Math.random() * employees.length)];
+
+        dtoOut.push({
             name: person.name,
             surname: person.surname,
-            workload: workloads[Math.floor(Math.random() * workloads.length)]
+            gender: person.gender,
+            birthdate: getBirthdate(dtoIn.age),
+            workload:
+                workloads[Math.floor(Math.random() * workloads.length)]
         });
     }
-    return result;
+
+    return dtoOut;
 }
