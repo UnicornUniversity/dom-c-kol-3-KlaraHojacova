@@ -1,4 +1,4 @@
-// Function for generation of random date of birth according to age range
+// Birth date/range age
 function getBirthdate(age) {
     const now = new Date().getTime();
     const msInYear = 365.25 * 24 * 60 * 60 * 1000;
@@ -7,22 +7,29 @@ function getBirthdate(age) {
     const randomMs = Math.floor(Math.random() * (maxMs - minMs + 1) + minMs);
     return new Date(randomMs).toISOString();
 }
+
 /**
- * Main function for generation of employees
+ * Main fuction for list generation
  */
 export function main(dtoIn) {
     const result = [];
-    const names = ["Jan", "Miroslav", "Jaroslav", "Rostislav", "Jana", "Zdena"];
-    const surnames = ["Holý", "Rezek", "Raketa", "Holek", "Bílá", "Holá"];
-    const genders = ["male", "female"];
+    const employees = [
+        { name: "Jan", surname: "Holý", gender: "male" },
+        { name: "Miroslav", surname: "Rezek", gender: "male" },
+        { name: "Jaroslav", surname: "Raketa", gender: "male" },
+        { name: "Rostislav", surname: "Holek", gender: "male" },
+        { name: "Jana", surname: "Bílá", gender: "female" },
+        { name: "Zdena", surname: "Holá", gender: "female" }
+    ];
     const workloads = [10, 20, 30, 40];
 
     for (let i = 0; i < dtoIn.count; i++) {
+        const person = employees[Math.floor(Math.random() * employees.length)];
         result.push({
-            gender: genders[Math.floor(Math.random() * genders.length)],
+            gender: person.gender,
             birthdate: getBirthdate(dtoIn.age),
-            name: names[Math.floor(Math.random() * names.length)],
-            surname: surnames[Math.floor(Math.random() * surnames.length)],
+            name: person.name,
+            surname: person.surname,
             workload: workloads[Math.floor(Math.random() * workloads.length)]
         });
     }
