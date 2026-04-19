@@ -11,7 +11,7 @@ function getBirthdate(age) {
     const randomTime = earliest + Math.random() * (latest - earliest);
 
     const birthdate = new Date(randomTime);
-    birthdate.setUTCHours(0, 0, 0, 0);
+    // Řádek s nulováním času (setUTCHours) je smazán, aby byl každý čas unikátní
 
     return birthdate.toISOString();
 }
