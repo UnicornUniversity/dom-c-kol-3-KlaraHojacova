@@ -4,7 +4,7 @@
  * @returns {string} ISO date
  */
 function getBirthdate(age) {
-    const msInYear = 365.25 * 24 * 60 * 60 * 1000;
+    const msInYear = 31557600000; // 365.25 dne v ms
     const now = new Date().getTime();
     const earliest = now - (age.max * msInYear);
     const latest = now - (age.min * msInYear);
@@ -15,12 +15,9 @@ function getBirthdate(age) {
 /**
  * Main function generating employees.
  * @param {object} dtoIn
- * @returns {array} dtoOut
+ * @returns {array}
  */
 export function main(dtoIn) {
-    // safety check
-    if (!dtoIn || typeof dtoIn.count !== "number") return [];
-
     const dtoOut = [];
     const employees = [
         { name: "Jan", surname: "Holý", gender: "male" },
