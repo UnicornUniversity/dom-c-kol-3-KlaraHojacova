@@ -6,12 +6,9 @@
 function getBirthdate(age) {
     const msInYear = 365.25 * 24 * 60 * 60 * 1000;
     const now = new Date().getTime();
-
     const earliest = now - (age.max * msInYear);
     const latest = now - (age.min * msInYear);
-
-    const randomTime = earliest + Math.random() * (latest - earliest);
-
+    const randomTime = Math.floor(earliest + Math.random() * (latest - earliest));
     return new Date(randomTime).toISOString();
 }
 
@@ -21,8 +18,10 @@ function getBirthdate(age) {
  * @returns {array} dtoOut
  */
 export function main(dtoIn) {
-    const dtoOut = [];
+    // safety check
+    if (!dtoIn || typeof dtoIn.count !== "number") return [];
 
+    const dtoOut = [];
     const employees = [
         { name: "Jan", surname: "Holý", gender: "male" },
         { name: "Miroslav", surname: "Rezek", gender: "male" },
@@ -31,12 +30,10 @@ export function main(dtoIn) {
         { name: "Jana", surname: "Bílá", gender: "female" },
         { name: "Zdena", surname: "Holá", gender: "female" }
     ];
-
     const workloads = [10, 20, 30, 40];
 
     for (let i = 0; i < dtoIn.count; i++) {
         const person = employees[Math.floor(Math.random() * employees.length)];
-
         dtoOut.push({
             gender: person.gender,
             birthdate: getBirthdate(dtoIn["age"]),
@@ -45,6 +42,5 @@ export function main(dtoIn) {
             workload: workloads[Math.floor(Math.random() * workloads.length)]
         });
     }
-
     return dtoOut;
 }
